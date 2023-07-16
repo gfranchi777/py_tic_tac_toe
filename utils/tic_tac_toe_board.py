@@ -1,12 +1,12 @@
 """Module
 """
-from python_utils.math_utils.grid.int_grid import IntGrid
+from python_utils.math_utils.grid.string_grid import StringGrid
 
-class TicTacToeBoard(IntGrid):
+class TicTacToeBoard(StringGrid):
     """Class
     """
 
-    def __init__(self, length: int, width: int, engine_square_value: int, player_square_value: int) -> None:
+    def __init__(self, length: int, width: int, engine_square_value: str, player_square_value: str) -> None:
         if self.is_valid_board_dimenstion(length, width):
             self._center_position = []
             self._corner_positions = []
@@ -18,23 +18,23 @@ class TicTacToeBoard(IntGrid):
             self.initialize_board(engine_square_value, player_square_value)
 
     @property
-    def engine_square_value(self) -> int:
-        return self.engine_square_value
+    def engine_square_value(self) -> str:
+        return self._engine_square_value
 
     @engine_square_value.setter
-    def engine_square_value(self, engine_square_value: int) -> None:
+    def engine_square_value(self, engine_square_value: str) -> None:
         self._engine_square_value = engine_square_value
 
     @property
-    def player_square_value(self) -> int:
-        return self.player_square_value
+    def player_square_value(self) -> str:
+        return self._player_square_value
 
     @player_square_value.setter
     def player_square_value(self, player_square_value: int) -> None:
         self._player_square_value = player_square_value
 
     @property
-    def center_position(self) -> int:
+    def center_position(self) -> list[int]:
         return self._center_position
 
     @property
@@ -42,7 +42,7 @@ class TicTacToeBoard(IntGrid):
         return self._corner_positions
 
     def determine_center_position(self) -> None:
-        self.center_position.insert(0, [int(self.length / 2), int(self.width / 2)])
+        self._center_position = [int(self.length / 2), int(self.width / 2)]
 
     def determine_corner_positions(self) -> None:
         # Top Left Corner
@@ -88,6 +88,8 @@ class TicTacToeBoard(IntGrid):
         return is_valid_board_dimension
 
     def initialize_board(self, engine_square_value: int, player_square_value: int) -> None:
+        super().initialize()
+
         self.engine_square_value = engine_square_value
         self.player_square_value = player_square_value
 
