@@ -66,7 +66,7 @@ class TicTacToeBoard(IntGrid):
             print('[ERROR]: Value ' + str(val) + ' Is Not A Valid Grid Element.')
             print('         Valid Values For Grid Elements Are ' + str(self.player_square_value) + ' or ' +
                   str(self.engine_square_value))
-
+            
         return is_valid_grid_element
 
     @staticmethod
