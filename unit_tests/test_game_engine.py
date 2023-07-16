@@ -1,11 +1,11 @@
-from engine.game_engine import GameEngine
-from utils.tic_tac_toe_board import TicTacToeBoard
+from tic_tac_toe.engine.game_engine import GameEngine
+from tic_tac_toe.utils.tic_tac_toe_board import TicTacToeBoard
 
-grid_size = 3
-engine_square_value = 1
-player_square_value = 2
+GRID_SIZE = 3
+ENGINE_SQUARE_VALUE = 1
+PLAYER_SQUARE_VALUE = 2
 
-board = TicTacToeBoard(grid_size, grid_size, engine_square_value, player_square_value)
+board = TicTacToeBoard(GRID_SIZE, GRID_SIZE, ENGINE_SQUARE_VALUE, PLAYER_SQUARE_VALUE)
 
 game_engine = GameEngine()
 

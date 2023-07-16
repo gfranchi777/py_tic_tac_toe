@@ -1,61 +1,76 @@
-from utils.grid import Grid
+"""Module
+"""
+from python_utils.math_utils.grid.int_grid import IntGrid
 
+class TicTacToeBoard(IntGrid):
+    """Class
+    """
 
-class TicTacToeBoard(Grid):
-    # Variables
-    engine_square_value: int
-    player_square_value: int
+    def __init__(self, length: int, width: int, engine_square_value: int, player_square_value: int) -> None:
+        if self.is_valid_board_dimenstion(length, width):
+            self._center_position = []
+            self._corner_positions = []
 
-    corner_positions = []
-    center_position = []
+            self._engine_square_value: int
+            self._player_square_value: int
 
-    def __init__(self, length: int, width: int, engine_square_value: int, player_square_value: int):
-        if self.isValidBoardDimension(length, width):
             super().__init__(length, width)
-            self.initializeBoard(engine_square_value, player_square_value)
+            self.initialize_board(engine_square_value, player_square_value)
 
-    def getEngineSquareValue(self):
+    @property
+    def engine_square_value(self) -> int:
         return self.engine_square_value
 
-    def getPlayerSquareValue(self):
+    @engine_square_value.setter
+    def engine_square_value(self, engine_square_value: int) -> None:
+        self._engine_square_value = engine_square_value
+
+    @property
+    def player_square_value(self) -> int:
         return self.player_square_value
 
-    def getCenterPosition(self):
-        return self.center_position[0]
+    @player_square_value.setter
+    def player_square_value(self, player_square_value: int) -> None:
+        self._player_square_value = player_square_value
 
-    def getCornerPositions(self):
-        return self.corner_positions
+    @property
+    def center_position(self) -> int:
+        return self._center_position
 
-    def determineCenterPosition(self):
-        self.center_position.insert(0, [int(self.getLength() / 2), int(self.getWidth() / 2)])
+    @property
+    def corner_positions(self) -> list[int]:
+        return self._corner_positions
 
-    def determineCornerPositions(self):
+    def determine_center_position(self) -> None:
+        self.center_position.insert(0, [int(self.length / 2), int(self.width / 2)])
+
+    def determine_corner_positions(self) -> None:
         # Top Left Corner
-        self.corner_positions.insert(0, self.getMinIndex())
+        self.corner_positions.insert(0, self.min_index)
 
         # Top Right Corner
-        self.corner_positions.insert(1, [0, self.getMaxHorizontalBoundary()])
+        self.corner_positions.insert(1, [0, self.max_horizontal_boundary])
 
         # Bottom Left Corner
-        self.corner_positions.insert(2, [self.getMaxHorizontalBoundary(), 0])
+        self.corner_positions.insert(2, [self.max_horizontal_boundary, 0])
 
         # Bottom Right Corner
-        self.corner_positions.insert(3, [self.getMaxHorizontalBoundary(), self.getMaxHorizontalBoundary()])
+        self.corner_positions.insert(3, [self.max_horizontal_boundary, self.max_horizontal_boundary])
 
-    def isValidGridElement(self, val: int):
+    def is_valid_grid_element(self, val: int) -> bool:
         is_valid_grid_element = False
 
         if val in range(1, 3):
             is_valid_grid_element = True
         else:
             print('[ERROR]: Value ' + str(val) + ' Is Not A Valid Grid Element.')
-            print('         Valid Values For Grid Elements Are ' + str(self.getPlayerSquareValue()) + ' or ' +
-                  str(self.getEngineSquareValue()))
-
+            print('         Valid Values For Grid Elements Are ' + str(self.player_square_value) + ' or ' +
+                  str(self.engine_square_value))
+            
         return is_valid_grid_element
 
     @staticmethod
-    def isValidBoardDimension(length: int, width: int):
+    def is_valid_board_dimenstion(length: int, width: int) -> bool:
         is_valid_board_dimension = False
 
         if length == width:
@@ -72,28 +87,27 @@ class TicTacToeBoard(Grid):
             print('[ERROR] Grid Must Be A Square.')
         return is_valid_board_dimension
 
-    def initializeBoard(self, engine_square_value: int, player_square_value: int):
+    def initialize_board(self, engine_square_value: int, player_square_value: int) -> None:
         self.engine_square_value = engine_square_value
         self.player_square_value = player_square_value
 
-        self.determineCenterPosition()
-        self.determineCornerPositions()
+        self.determine_center_position()
+        self.determine_corner_positions()
 
-    def printBoardDetails(self):
-        print('Playing Grid Size Is [' + str(self.getLength()) + ',' + str(self.getWidth()) + '].')
+    def print_board_details(self) -> None:
+        print('Playing Grid Size Is [' + str(self.length) + ',' + str(self.width) + '].')
 
-        print('Center Position Index Is ' + str(self.getCenterPosition()[0]) + '.')
+        print('Center Position Index Is ' + str(self.center_position[0]) + '.')
 
-        corner_positions_string = ""
+        print('Corner Position Indices Are ')
 
-        print('Corner Position Indices Are ' + corner_positions_string)
+        for row_index, row_val in enumerate(self.corner_positions):
+            print('[' + str(self.corner_positions[row_index][0]) + ',' +
+                        str(self.corner_positions[row_index][1]) + ']')
 
-        for row in range(len(self.getCornerPositions())):
-            print('[' + str(self.corner_positions[row][0]) + ',' + str(self.corner_positions[row][1]) + ']')
-
-    def printBoard(self):
+    def print_board(self) -> None:
         print('Current Board Status:', end='\n\n')
-        for row in range(self.getLength()):
-            for col in range(self.getWidth()):
+        for row in range(self.length):
+            for col in range(self.width):
                 print(str(self.grid[row][col]) + ' ', end='')
             print()
