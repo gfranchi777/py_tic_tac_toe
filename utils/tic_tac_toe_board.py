@@ -1,6 +1,6 @@
 """Module
 """
-from python_utils.math_utils.grid.string_grid import StringGrid
+from pyutils.math_utils.grid.string_grid import StringGrid
 
 class TicTacToeBoard(StringGrid):
     """Class
