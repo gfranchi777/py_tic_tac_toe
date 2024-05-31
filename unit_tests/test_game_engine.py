@@ -1,5 +1,5 @@
-"""Module
-"""
+'''Module
+'''
 from tic_tac_toe.engine.game_engine import GameEngine
 from tic_tac_toe.utils.tic_tac_toe_board import TicTacToeBoard
 

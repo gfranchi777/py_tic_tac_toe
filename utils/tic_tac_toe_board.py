@@ -1,10 +1,10 @@
-"""Module
-"""
+'''Module
+'''
 from pyutils.math_utils.grid.string_grid import StringGrid
 
 class TicTacToeBoard(StringGrid):
-    """Class
-    """
+    '''Class
+    '''
 
     def __init__(self, length: int, width: int, engine_square_value: str, player_square_value: str) -> None:
         if self.is_valid_board_dimenstion(length, width):

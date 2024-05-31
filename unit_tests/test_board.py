@@ -1,5 +1,5 @@
-""""Module
-"""
+'''"Module
+'''
 from tic_tac_toe.utils.tic_tac_toe_board import TicTacToeBoard
 
 GRID_SIZE = 3
@@ -7,8 +7,8 @@ ENGINE_SQUARE_VALUE = 1
 PLAYER_SQUARE_VALUE = 2
 
 def main() -> None:
-    """Main
-    """
+    '''Main
+    '''
     board = TicTacToeBoard(GRID_SIZE, GRID_SIZE, ENGINE_SQUARE_VALUE, PLAYER_SQUARE_VALUE)
 
     board.print_board_details()

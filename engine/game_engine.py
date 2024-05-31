@@ -1,12 +1,12 @@
-"""Module
-"""
+'''Module
+'''
 from tic_tac_toe.utils.tic_tac_toe_board import TicTacToeBoard
 import random
 
 
 class GameEngine:
-    """Class
-    """
+    '''Class
+    '''
     def __init__(self):
         self._game_ended = False
         self._is_first_move = True
