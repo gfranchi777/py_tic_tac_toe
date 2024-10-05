@@ -1,12 +1,19 @@
-'''Module
-'''
+"""Module
+"""
+
 from pyutils.math_utils.grid.string_grid import StringGrid
 
-class TicTacToeBoard(StringGrid):
-    '''Class
-    '''
 
-    def __init__(self, length: int, width: int, engine_square_value: str, player_square_value: str) -> None:
+class TicTacToeBoard(StringGrid):
+    """Class"""
+
+    def __init__(
+        self,
+        length: int,
+        width: int,
+        engine_square_value: str,
+        player_square_value: str,
+    ) -> None:
         if self.is_valid_board_dimenstion(length, width):
             self._center_position = []
             self._corner_positions = []
@@ -55,7 +62,9 @@ class TicTacToeBoard(StringGrid):
         self.corner_positions.insert(2, [self.max_horizontal_boundary, 0])
 
         # Bottom Right Corner
-        self.corner_positions.insert(3, [self.max_horizontal_boundary, self.max_horizontal_boundary])
+        self.corner_positions.insert(
+            3, [self.max_horizontal_boundary, self.max_horizontal_boundary]
+        )
 
     def is_valid_grid_element(self, val: int) -> bool:
         is_valid_grid_element = False
@@ -63,10 +72,16 @@ class TicTacToeBoard(StringGrid):
         if val in range(1, 3):
             is_valid_grid_element = True
         else:
-            print('[ERROR]: Value ' + str(val) + ' Is Not A Valid Grid Element.')
-            print('         Valid Values For Grid Elements Are ' + str(self.player_square_value) + ' or ' +
-                  str(self.engine_square_value))
-            
+            print(
+                "[ERROR]: Value " + str(val) + " Is Not A Valid Grid Element."
+            )
+            print(
+                "         Valid Values For Grid Elements Are "
+                + str(self.player_square_value)
+                + " or "
+                + str(self.engine_square_value)
+            )
+
         return is_valid_grid_element
 
     @staticmethod
@@ -78,16 +93,30 @@ class TicTacToeBoard(StringGrid):
                 if length % 2 != 0:
                     is_valid_board_dimension = True
                 else:
-                    print('[ERROR]: Grid Size Must Be An Odd Number.')
-                    print('         Grid Size Entered: [' + str(length) + ',' + str(width) + '].')
+                    print("[ERROR]: Grid Size Must Be An Odd Number.")
+                    print(
+                        "         Grid Size Entered: ["
+                        + str(length)
+                        + ","
+                        + str(width)
+                        + "]."
+                    )
             else:
-                print('[ERROR]: Grid Size Must Be Greater Than Or Equal To 3.')
-                print('         Grid Size Entered: [' + str(length) + ',' + str(width) + '].')
+                print("[ERROR]: Grid Size Must Be Greater Than Or Equal To 3.")
+                print(
+                    "         Grid Size Entered: ["
+                    + str(length)
+                    + ","
+                    + str(width)
+                    + "]."
+                )
         else:
-            print('[ERROR] Grid Must Be A Square.')
+            print("[ERROR] Grid Must Be A Square.")
         return is_valid_board_dimension
 
-    def initialize_board(self, engine_square_value: int, player_square_value: int) -> None:
+    def initialize_board(
+        self, engine_square_value: int, player_square_value: int
+    ) -> None:
         super().initialize()
 
         self.engine_square_value = engine_square_value
@@ -97,19 +126,30 @@ class TicTacToeBoard(StringGrid):
         self.determine_corner_positions()
 
     def print_board_details(self) -> None:
-        print('Playing Grid Size Is [' + str(self.length) + ',' + str(self.width) + '].')
+        print(
+            "Playing Grid Size Is ["
+            + str(self.length)
+            + ","
+            + str(self.width)
+            + "]."
+        )
 
-        print('Center Position Index Is ' + str(self.center_position[0]) + '.')
+        print("Center Position Index Is " + str(self.center_position[0]) + ".")
 
-        print('Corner Position Indices Are ')
+        print("Corner Position Indices Are ")
 
         for row_index, row_val in enumerate(self.corner_positions):
-            print('[' + str(self.corner_positions[row_index][0]) + ',' +
-                        str(self.corner_positions[row_index][1]) + ']')
+            print(
+                "["
+                + str(self.corner_positions[row_index][0])
+                + ","
+                + str(self.corner_positions[row_index][1])
+                + "]"
+            )
 
     def print_board(self) -> None:
-        print('Current Board Status:', end='\n\n')
+        print("Current Board Status:", end="\n\n")
         for row in range(self.length):
             for col in range(self.width):
-                print(str(self.grid[row][col]) + ' ', end='')
+                print(str(self.grid[row][col]) + " ", end="")
             print()

@@ -1,12 +1,13 @@
-'''Module
-'''
+"""Module
+"""
+
 from tic_tac_toe.utils.tic_tac_toe_board import TicTacToeBoard
 import random
 
 
 class GameEngine:
-    '''Class
-    '''
+    """Class"""
+
     def __init__(self):
         self._game_ended = False
         self._is_first_move = True
@@ -14,16 +15,19 @@ class GameEngine:
     @property
     def game_ended(self) -> bool:
         return self._game_ended
-    
+
     @game_ended.setter
     def game_ended(self, game_ended: bool) -> None:
         self._game_ended = game_ended
-    
+
     def is_first_move(self, board: TicTacToeBoard) -> bool:
         for row in range(board.length):
             if not self._is_first_move:
                 for col in range(board.length):
-                    if board.get_value_at([row, col]) != board.type.value["initial_value"]:
+                    if (
+                        board.get_value_at([row, col])
+                        != board.type.value["initial_value"]
+                    ):
                         self._is_first_move = False
                         break
 
@@ -33,7 +37,10 @@ class GameEngine:
     def is_center_available(board: TicTacToeBoard):
         is_center_available = False
 
-        if board.get_value_at(board.center_position) == board.type.value["initial_value"]:
+        if (
+            board.get_value_at(board.center_position)
+            == board.type.value["initial_value"]
+        ):
             is_center_available = True
 
         return is_center_available
@@ -44,7 +51,10 @@ class GameEngine:
         available_corner = []
 
         for i in range(4):
-            if board.get_value_at(board.corner_positions[i]) == board.type.value["initial_value"]:
+            if (
+                board.get_value_at(board.corner_positions[i])
+                == board.type.value["initial_value"]
+            ):
                 is_corner_available = True
                 available_corner = board.corner_positions[i]
                 break
@@ -55,8 +65,10 @@ class GameEngine:
         if (random.randint(1, 2) % 2) == 0:
             board.set_value_at(board.center_position, board.engine_square_value)
         else:
-            board.set_value_at(board.corner_positions[random.randint(0, 3)],
-                                  board.engine_square_value)
+            board.set_value_at(
+                board.corner_positions[random.randint(0, 3)],
+                board.engine_square_value,
+            )
 
         self._is_first_move = False
 
@@ -67,12 +79,22 @@ class GameEngine:
             move_made = self.check_for_win_or_block(board)
             if move_made[0] != "":
                 if move_made[0] == "WINNING":
-                    print('Engine Determined Winning Move Possible At Index (' +
-                          str(move_made[1][0]) + ',' + str(move_made[1][1]) + ').')
+                    print(
+                        "Engine Determined Winning Move Possible At Index ("
+                        + str(move_made[1][0])
+                        + ","
+                        + str(move_made[1][1])
+                        + ")."
+                    )
                     board.set_value_at(move_made[1], board.engine_square_value)
                 elif move_made[0] == "BLOCKING":
-                    print('Engine Determined It Must Block A Possible Player Win At Index (' +
-                          str(move_made[1][0]) + ',' + str(move_made[1][1]) + ').')
+                    print(
+                        "Engine Determined It Must Block A Possible Player Win At Index ("
+                        + str(move_made[1][0])
+                        + ","
+                        + str(move_made[1][1])
+                        + ")."
+                    )
                     board.set_value_at(move_made[1], board.engine_square_value)
             else:
                 pass
@@ -92,14 +114,19 @@ class GameEngine:
             for col in range(board.length):
                 if board.get_value_at([row, col]) == board.engine_square_value:
                     engine_move_count += 1
-                elif board.get_value_at([row, col]) == board.player_square_value:
+                elif (
+                    board.get_value_at([row, col]) == board.player_square_value
+                ):
                     player_move_count += 1
                 else:
                     move_coordinates.clear()
                     move_coordinates.insert(0, row)
                     move_coordinates.insert(1, col)
 
-            if board.get_value_at(move_coordinates) == board.type.value["initial_value"]:
+            if (
+                board.get_value_at(move_coordinates)
+                == board.type.value["initial_value"]
+            ):
                 if engine_move_count == (board.max_horizontal_boundary):
                     move_made = True
                     move_type = "WINNING"
@@ -115,16 +142,25 @@ class GameEngine:
                 engine_move_count = 0
                 player_move_count = 0
                 for row in range(board.length):
-                    if board.get_value_at([row, col]) == board.engine_square_value:
+                    if (
+                        board.get_value_at([row, col])
+                        == board.engine_square_value
+                    ):
                         engine_move_count += 1
-                    elif board.get_value_at([row, col]) == board.player_square_value:
+                    elif (
+                        board.get_value_at([row, col])
+                        == board.player_square_value
+                    ):
                         player_move_count += 1
                     else:
                         move_coordinates.clear()
                         move_coordinates.insert(0, row)
                         move_coordinates.insert(1, col)
 
-                if board.get_value_at(move_coordinates) == board.type.value["initial_value"]:
+                if (
+                    board.get_value_at(move_coordinates)
+                    == board.type.value["initial_value"]
+                ):
                     if engine_move_count == (board.max_horizontal_boundary):
                         move_made = True
                         move_type = "WINNING"
@@ -141,10 +177,16 @@ class GameEngine:
                 row = 0
                 col = 0
                 for i in range(board.length):
-                    if board.get_value_at([row, col]) == board.engine_square_value:
+                    if (
+                        board.get_value_at([row, col])
+                        == board.engine_square_value
+                    ):
 
                         engine_move_count += 1
-                    elif board.get_value_at([row, col]) == board.player_square_value:
+                    elif (
+                        board.get_value_at([row, col])
+                        == board.player_square_value
+                    ):
                         player_move_count += 1
                     else:
                         move_coordinates.clear()
@@ -154,7 +196,10 @@ class GameEngine:
                     row += 1
                     col += 1
 
-                if board.get_value_at(move_coordinates) == board.type.value["initial_value"]:
+                if (
+                    board.get_value_at(move_coordinates)
+                    == board.type.value["initial_value"]
+                ):
                     if engine_move_count == (board.max_horizontal_boundary):
                         move_made = True
                         move_type = "WINNING"
@@ -168,9 +213,15 @@ class GameEngine:
                 row = 0
                 col = 0
                 for i in range(board.length):
-                    if board.get_value_at([row, col]) == board.engine_square_value:
+                    if (
+                        board.get_value_at([row, col])
+                        == board.engine_square_value
+                    ):
                         engine_move_count += 1
-                    elif board.get_value_at([row, col]) == board.player_square_value:
+                    elif (
+                        board.get_value_at([row, col])
+                        == board.player_square_value
+                    ):
                         player_move_count += 1
                     else:
                         move_coordinates.clear()
@@ -180,7 +231,10 @@ class GameEngine:
                     row += 1
                     col -= 1
 
-                if board.get_value_at(move_coordinates) == board.type.value["initial_value"]:
+                if (
+                    board.get_value_at(move_coordinates)
+                    == board.type.value["initial_value"]
+                ):
                     if engine_move_count == (board.max_horizontal_boundary):
                         move_type = "WINNING"
                     elif player_move_count == (board.max_horizontal_boundary):
